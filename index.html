@@ -4,43 +4,161 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script type="text/javascript" src="jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="knockout-3.5.0.js"></script>
     <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
 
     <title>Knockout</title>
   </head>
   <body>
     <!-- This is called "view" of HTML markup that defines the appearance of UI -->
+    <h1 class="text-center">Knockout</h1>
+    <br />
+    <div class="container">
+      <div class="from-group row">
+        <label for="firstName" class="col-sm-2 col-form-label">
+          First Name:
+        </label>
+        <input
+          class="form-control col-sm-3"
+          id="firstName"
+          data-bind='value: firstName, valueUpdate: "afterkeydown"'
+        />
+        <span
+          class="error"
+          data-bind="visible: $root.OnSubmit() && firstName.hasError, text: firstName.validationMessage"
+        >
+        </span>
+      </div>
+      <br />
+      <div class="form-group row">
+        <label for="lastName" class="col-form-label col-sm-2">Last Name:</label>
+        <input
+          class="form-control col-sm-3"
+          id="lastName"
+          data-bind="value: lastName"
+        />
+        <span
+          class="error"
+          data-bind="visible: $root.OnSubmit() &&  lastName.hasError, text: lastName.validationMessage"
+        ></span>
+      </div>
+      <div class="form-group row">
+        <label for="email" class="col-form-label col-sm-2">Email:</label>
+        <input
+          id="email"
+          class="form-control col-sm-3"
+          data-bind="value: email"
+        />
+        <span
+          class="error"
+          data-bind="visible:  $root.OnSubmit() &&  email.hasError, text: email.validationMessage"
+        ></span>
+      </div>
+      <div class="form-group row">
+        <label for="dateofBirth" class="col-form-label col-sm-2"
+          >Date of Birth:</label
+        >
+        <input
+          type="date"
+          id="dateofBirth"
+          class="form-control col-sm-3"
+          data-bind="value: dateOfBirth"
+        />
+        <span
+          class="error"
+          data-bind="visible:  $root.OnSubmit() &&  dateOfBirth.hasError, text: dateOfBirth.validationMessage"
+        ></span>
+      </div>
+      <div class="form-group row">
+        <label for="gender" class="col-form-label col-sm-2">Gender:</label>
+        <span class="form-control-planetext col-sm-1">
+          <input
+            type="radio"
+            name="gender"
+            value="Male"
+            data-bind="checked: checkGender"
+          />
+          Male</span
+        >
+        <span class="form-control-planetext"
+          ><input
+            type="radio"
+            name="gender"
+            value="Female"
+            data-bind="checked: checkGender"
+          />
+          Female</span
+        >
+        <span
+          class="error"
+          data-bind="visible:  $root.OnSubmit() &&  checkGender.hasError, text: checkGender.validationMessage"
+        ></span>
+      </div>
+      <div class="form-group row">
+        <label for="city" class="col-form-label col-sm-2">City:</label>
+        <select
+          class="form-control col-sm-3"
+          data-bind="
+         options: availableCity,
+         value: selectedCity,
+         optionsCaption: 'Choose City'"
+        ></select>
+        <span
+          class="error"
+          data-bind="visible:  $root.OnSubmit() &&  selectedCity.hasError, text: selectedCity.validationMessage"
+        ></span>
+      </div>
 
-    <p>First Name: <input data-bind="value: firstString" /></p>
-    <p>Last Name: <input data-bind="value: secondString" /></p>
-    <button data-bind="click: showMessage">Click here</button>
-    <!-- options binding -->
-
-    <p>First Name: <strong data-bind="text: firstString">Hi</strong></p>
-    <p>Last Name: <strong data-bind="text: secondString">There</strong></p>
-
-    <p>Derived String: <strong data-bind="text: thirdString"></strong></p>
-
-    <p>List of courses available:</p>
-    <div data-bind="foreach: courseArray ">
-      <li data-bind="text: $data"><span data-bind="text: $index"></span></li>
+      <div class="form-group row">
+        <span
+          data-bind="click: addition, if:isUpdate, css:{'btn':isUpdate,'btn-success':isUpdate}"
+          >Submit</span
+        >
+        <span
+          data-bind="click: updateItems, ifnot:isUpdate, css:{'btn':!isUpdate(),'btn-primary':!isUpdate()}"
+          >Update</span
+        >
+      </div>
     </div>
-    <input data-bind="value: item" />
-    <button data-bind="click: addItem">Add</button>
+    <div class="container">
+      <table class="table table-borderless">
+        <thead>
+          <tr>
+            <td>Name</td>
+            <td>Email</td>
+            <td>Date of Birth</td>
+            <td>Gender</td>
+            <td>City</td>
+            <td>Action</td>
+          </tr>
+        </thead>
+        <tbody data-bind="foreach: list">
+          <tr>
+            <td data-bind="text: name"></td>
+            <td data-bind="text: email"></td>
+            <td data-bind="text: dateOfBirth"></td>
+            <td data-bind="text: gender"></td>
+            <td data-bind="text: city"></td>
+            <td>
+              <a href="#" data-bind="click: $parent.removeItem">Remove</a>
+              <a href="#" data-bind="click: $parent.editItems">Edit </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
     <script type="text/javascript" src="AppViewModel.js"></script>
-    <!-- <script>
-      function AppViewModel() {
-        this.firstString = ko.observable("Enter First String");
-        this.secondString = ko.observable("Enter Second String");
-
-        this.thirdString = ko.computed(function() {
-          return this.firstString() + " " + this.secondString();
-        }, this);
-      }
-
-      // Activates knockout.js
-      ko.applyBindings(new AppViewModel());
-    </script> -->
   </body>
 </html>
