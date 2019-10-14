@@ -122,8 +122,10 @@ class ViewModel {
         !self.selectedCity.hasError()
       ) {
         self.list().forEach(data => {
+          console.log(self.id());
           if (data._id === self.id()) {
             const newData = {
+              _id: self.id(),
               name: self.firstName() + " " + self.lastName(),
               email: self.email(),
               dateOfBirth: self.dateOfBirth(),
@@ -141,6 +143,7 @@ class ViewModel {
             });
             self.OnSubmit(false);
             self.firstName("");
+            self.id("");
             self.lastName("");
             self.email("");
             self.dateOfBirth("");
