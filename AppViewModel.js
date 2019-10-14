@@ -20,15 +20,6 @@ ko.extenders.required = function(target, overrideMessage) {
   //return the original observable
   return target;
 };
-function data(id, name, email, dateOfBirth, gender, city) {
-  var self = this;
-  self.id = id;
-  self.name = name;
-  self.email = email;
-  self.dateOfBirth = dateOfBirth;
-  self.gender = gender;
-  self.city = city;
-}
 
 class ViewModel {
   constructor() {
@@ -97,8 +88,6 @@ class ViewModel {
       async: false
     });
     self.list = ko.observableArray(d);
-    console.log(self.list());
-    console.log(d);
     this.updateItems = function() {
       self.OnSubmit(true);
       if (
@@ -174,6 +163,5 @@ class ViewModel {
     };
   }
 }
-
 var vm = new ViewModel();
 ko.applyBindings(vm);
