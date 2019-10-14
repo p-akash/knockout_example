@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script type="text/javascript" src="knockout-3.5.0.js"></script>
+    <link rel="stylesheet" href="styles.css" />
+
+    <title>Knockout</title>
+  </head>
+  <body>
+    <!-- This is called "view" of HTML markup that defines the appearance of UI -->
+
+    <p>First Name: <input data-bind="value: firstString" /></p>
+    <p>Last Name: <input data-bind="value: secondString" /></p>
+    <button data-bind="click: showMessage">Click here</button>
+    <!-- options binding -->
+
+    <p>First Name: <strong data-bind="text: firstString">Hi</strong></p>
+    <p>Last Name: <strong data-bind="text: secondString">There</strong></p>
+
+    <p>Derived String: <strong data-bind="text: thirdString"></strong></p>
+
+    <p>List of courses available:</p>
+    <div data-bind="foreach: courseArray ">
+      <li data-bind="text: $data"><span data-bind="text: $index"></span></li>
+    </div>
+    <input data-bind="value: item" />
+    <button data-bind="click: addItem">Add</button>
+    <script type="text/javascript" src="AppViewModel.js"></script>
+    <!-- <script>
+      function AppViewModel() {
+        this.firstString = ko.observable("Enter First String");
+        this.secondString = ko.observable("Enter Second String");
+
+        this.thirdString = ko.computed(function() {
+          return this.firstString() + " " + this.secondString();
+        }, this);
+      }
+
+      // Activates knockout.js
+      ko.applyBindings(new AppViewModel());
+    </script> -->
+  </body>
+</html>
