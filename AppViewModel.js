@@ -20,6 +20,26 @@ ko.extenders.required = function(target, overrideMessage) {
   //return the original observable
   return target;
 };
+ko.extenders.isEmail = function(elm, customMessage) {
+  //add some sub-observables to our observable
+  elm.hasError = ko.observable();
+  elm.validationMessage = ko.observable();
+  //This is the function to validate the value entered in the text boxes
+  function validateEmail(valEntered) {
+    var emailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    //If the value entered is a valid mail id, return fals or return true
+    elm.hasError(emailPattern.test(valEntered) === false ? true : false);
+    //If not a valid mail id, return custom message
+    elm.validationMessage(
+      emailPattern.test(valEntered) === true ? "" : customMessage
+    );
+  }
+  //Call the validation function for the initial validation
+  validateEmail(elm());
+  //Validate the value whenever there is a change in value
+  elm.subscribe(validateEmail);
+  return elm;
+};
 
 class ViewModel {
   constructor() {
@@ -32,7 +52,10 @@ class ViewModel {
     self.lastName = ko
       .observable()
       .extend({ required: "Please enter a last name" });
-    self.email = ko.observable().extend({ required: "Please enater a email" });
+    self.email = ko.observable().extend({
+      required: "Please enater a email",
+      isEmail: "Not a valid mail id"
+    });
     self.checkGender = ko
       .observable("")
       .extend({ required: "Please select gender" });

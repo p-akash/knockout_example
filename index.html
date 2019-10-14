@@ -67,9 +67,9 @@
         ></span>
       </div>
       <div class="form-group row">
-        <label for="dateofBirth" class="col-form-label col-sm-2"
-          >Date of Birth:</label
-        >
+        <label for="dateofBirth" class="col-form-label col-sm-2">
+          Date of Birth:
+        </label>
         <input
           type="date"
           id="dateofBirth"
@@ -79,7 +79,8 @@
         <span
           class="error"
           data-bind="visible:  $root.OnSubmit() &&  dateOfBirth.hasError, text: dateOfBirth.validationMessage"
-        ></span>
+        >
+        </span>
       </div>
       <div class="form-group row">
         <label for="gender" class="col-form-label col-sm-2">Gender:</label>
@@ -92,15 +93,15 @@
           />
           Male</span
         >
-        <span class="form-control-planetext"
-          ><input
+        <span class="form-control-planetext">
+          <input
             type="radio"
             name="gender"
             value="Female"
             data-bind="checked: checkGender"
           />
-          Female</span
-        >
+          Female
+        </span>
         <span
           class="error"
           data-bind="visible:  $root.OnSubmit() &&  checkGender.hasError, text: checkGender.validationMessage"
@@ -124,12 +125,13 @@
       <div class="form-group row">
         <span
           data-bind="click: addition, if:isUpdate, css:{'btn':isUpdate,'btn-success':isUpdate}"
-          >Submit</span
-        >
+          >Submit
+        </span>
         <span
           data-bind="click: updateItems, ifnot:isUpdate, css:{'btn':!isUpdate(),'btn-primary':!isUpdate()}"
-          >Update</span
         >
+          Update
+        </span>
       </div>
     </div>
     <div class="container">
