@@ -85,7 +85,7 @@ class ViewModel {
         url: "http://localhost:8080/api/user-data/delete-user/" + this._id,
         type: "DELETE",
         success: function(result) {
-          console.log(result);
+          alert("Deleted successfully!");
         }
       });
     };
@@ -105,7 +105,6 @@ class ViewModel {
     $.ajax({
       url: "http://localhost:8080/api/user-data",
       success: function(data) {
-        console.log(data);
         d = data;
       },
       async: false
@@ -122,7 +121,6 @@ class ViewModel {
         !self.selectedCity.hasError()
       ) {
         self.list().forEach(data => {
-          console.log(self.id());
           if (data._id === self.id()) {
             const newData = {
               _id: self.id(),
@@ -138,7 +136,7 @@ class ViewModel {
               type: "PUT",
               data: newData,
               success: function(result) {
-                console.log(result);
+                alert("Data updated  successfully!");
               }
             });
             self.OnSubmit(false);
@@ -173,10 +171,8 @@ class ViewModel {
           city: self.selectedCity()
         };
         self.list.push(userData);
-        $.post("http://localhost:8080/api/user-data", userData, function(
-          returnedData
-        ) {
-          console.log(returnedData);
+        $.post("http://localhost:8080/api/user-data", userData, function() {
+          alert("Data inserated successfully");
         });
         self.OnSubmit(false);
         self.firstName("");
@@ -184,7 +180,6 @@ class ViewModel {
         self.email("");
         self.dateOfBirth("");
         self.selectedCity("");
-        alert("Data inserated successfully");
       }
     };
   }
